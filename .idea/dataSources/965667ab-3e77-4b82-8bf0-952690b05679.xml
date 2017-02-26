@@ -1,0 +1,1248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="yundian_db@112.74.182.214">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="yundian_db">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="oauth_db">
+      <Visible>1</Visible>
+    </schema>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <table id="7" parent="2" name="r_user_station">
+      <Comment>用户提交站点信息表</Comment>
+    </table>
+    <table id="8" parent="2" name="t_connector">
+      <Comment>充电设备接口信息</Comment>
+    </table>
+    <table id="9" parent="2" name="t_connector_status">
+      <Comment>充电设备接口实时状态信息</Comment>
+    </table>
+    <table id="10" parent="2" name="t_nation">
+      <Comment>国家行政区域代码 符合 GB/T 2206 -2007</Comment>
+    </table>
+    <table id="11" parent="2" name="t_operator">
+      <Comment>运营商信息</Comment>
+    </table>
+    <table id="12" parent="2" name="t_pole">
+      <Comment>充电桩信息</Comment>
+    </table>
+    <table id="13" parent="2" name="t_station">
+      <Comment>充电站信息</Comment>
+    </table>
+    <table id="14" parent="2" name="t_station_img">
+      <Comment>用户提交站点信息表</Comment>
+    </table>
+    <table id="15" parent="2" name="t_user">
+      <Comment>用户信息</Comment>
+    </table>
+    <routine id="16" parent="2" name="query_area">
+      <Comment>根据 code 查询区域名称</Comment>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <table id="17" parent="5" name="oauth_access_token"/>
+    <table id="18" parent="5" name="oauth_client_details"/>
+    <table id="19" parent="5" name="oauth_client_token"/>
+    <table id="20" parent="5" name="oauth_code"/>
+    <table id="21" parent="5" name="oauth_refresh_token"/>
+    <table id="22" parent="5" name="user_"/>
+    <table id="23" parent="5" name="user_privilege"/>
+    <column id="24" parent="7" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="25" parent="7" name="username">
+      <Position>2</Position>
+      <Comment>用户名 以电话号码作为用户名</Comment>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="26" parent="7" name="station_id">
+      <Position>3</Position>
+      <Comment>充电站ID 运营商自定义的唯一编码，不足长度在前方补0</Comment>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="27" parent="7" name="create_at">
+      <Position>4</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="28" parent="7" name="update_at">
+      <Position>5</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="29" parent="7" name="del_flag">
+      <Position>6</Position>
+      <Comment>是否已删除 0：未删除 1：已删除</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="30" parent="7" name="station_id">
+      <ColNames>station_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="31" parent="7" name="username">
+      <ColNames>username</ColNames>
+    </index>
+    <key id="32" parent="7" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="33" parent="7" name="station_id">
+      <ColNames>station_id</ColNames>
+      <UnderlyingIndexName>station_id</UnderlyingIndexName>
+    </key>
+    <foreign-key id="34" parent="7" name="fk_user">
+      <ColNames>username</ColNames>
+      <RefSchemaName>yundian_db</RefSchemaName>
+      <RefTableName>t_user</RefTableName>
+      <RefColNames>username</RefColNames>
+      <OnUpdate>update</OnUpdate>
+    </foreign-key>
+    <foreign-key id="35" parent="7" name="fk_station">
+      <ColNames>station_id</ColNames>
+      <RefSchemaName>yundian_db</RefSchemaName>
+      <RefTableName>t_station</RefTableName>
+      <RefColNames>station_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+    </foreign-key>
+    <column id="36" parent="8" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="37" parent="8" name="connector_id">
+      <Position>2</Position>
+      <Comment>充电设备接口编码，同一运营商内唯一</Comment>
+      <DataType>varchar(26)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="38" parent="8" name="pole_id">
+      <Position>3</Position>
+      <Comment>设备唯一编码，对同一运营商，保证唯一</Comment>
+      <DataType>varchar(23)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="39" parent="8" name="connector_name">
+      <Position>4</Position>
+      <Comment>充电设备接口名称</Comment>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="40" parent="8" name="connector_type">
+      <Position>5</Position>
+      <Comment>充电设备接口类型&#xd;
+1：家用插座（模式2）&#xd;
+2：交流接口插座（模式3，连接方式B ）&#xd;
+3：交流接口插头（带枪线，模式3，连接方式C）&#xd;
+4：直流接口枪头（带枪线，模式4）&#xd;
+5：无线充电座 &#xd;
+6：其他</Comment>
+      <DataType>tinyint(3) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="41" parent="8" name="voltage_upper_limits">
+      <Position>6</Position>
+      <Comment>额定电压上限 单位：V</Comment>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="42" parent="8" name="voltage_lower_limits">
+      <Position>7</Position>
+      <Comment>额定电压下限 单位：V</Comment>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="43" parent="8" name="current">
+      <Position>8</Position>
+      <Comment>额定电流 单位：A</Comment>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="44" parent="8" name="power">
+      <Position>9</Position>
+      <Comment>额定功率 单位：kW</Comment>
+      <DataType>double(5,1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
+    </column>
+    <column id="45" parent="8" name="park_no">
+      <Position>10</Position>
+      <Comment>车位号 停车场车位编号</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="46" parent="8" name="national_standard">
+      <Position>11</Position>
+      <Comment>国家标准 1:2011；2:2015</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="47" parent="8" name="create_at">
+      <Position>12</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="48" parent="8" name="update_at">
+      <Position>13</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="49" parent="8" name="del_flag">
+      <Position>14</Position>
+      <Comment>是否已删除 0：未删除 1：已删除</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="50" parent="8" name="connector_id">
+      <ColNames>connector_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="51" parent="8" name="equipment_id">
+      <ColNames>pole_id</ColNames>
+    </index>
+    <key id="52" parent="8" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="53" parent="8" name="connector_id">
+      <ColNames>connector_id</ColNames>
+      <UnderlyingIndexName>connector_id</UnderlyingIndexName>
+    </key>
+    <foreign-key id="54" parent="8" name="fk_connector_pole">
+      <ColNames>pole_id</ColNames>
+      <RefSchemaName>yundian_db</RefSchemaName>
+      <RefTableName>t_pole</RefTableName>
+      <RefColNames>pole_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+    </foreign-key>
+    <column id="55" parent="9" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="56" parent="9" name="connector_id">
+      <Position>2</Position>
+      <Comment>充电设备接口编码，同一运营商内唯一</Comment>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="57" parent="9" name="status">
+      <Position>3</Position>
+      <Comment>充电设备接口状态&#xd;
+0：离网&#xd;
+1：空闲&#xd;
+2：占用（未充电）&#xd;
+3：占用（充电中）&#xd;
+4：占用（预约锁定）&#xd;
+255：故障</Comment>
+      <DataType>tinyint(3) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="58" parent="9" name="park_status">
+      <Position>4</Position>
+      <Comment>车位状态&#xd;
+0：未知&#xd;
+10：空闲&#xd;
+50：占用</Comment>
+      <DataType>tinyint(3)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="59" parent="9" name="lock_status">
+      <Position>5</Position>
+      <Comment>地锁状态&#xd;
+0：未知&#xd;
+10：已解锁&#xd;
+50：已上锁</Comment>
+      <DataType>tinyint(3)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="60" parent="9" name="create_at">
+      <Position>6</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="61" parent="9" name="update_at">
+      <Position>7</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="62" parent="9" name="del_flag">
+      <Position>8</Position>
+      <Comment>是否已删除 0：未删除 1：已删除</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="63" parent="9" name="connector_id">
+      <ColNames>connector_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="64" parent="9" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="65" parent="9" name="connector_id">
+      <ColNames>connector_id</ColNames>
+      <UnderlyingIndexName>connector_id</UnderlyingIndexName>
+    </key>
+    <foreign-key id="66" parent="9" name="fk_connector_status">
+      <ColNames>connector_id</ColNames>
+      <RefSchemaName>yundian_db</RefSchemaName>
+      <RefTableName>t_connector</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+    </foreign-key>
+    <column id="67" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="68" parent="10" name="code">
+      <Position>2</Position>
+      <Comment>辖区编码</Comment>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="69" parent="10" name="province">
+      <Position>3</Position>
+      <Comment>省</Comment>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="70" parent="10" name="city">
+      <Position>4</Position>
+      <Comment>市</Comment>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="71" parent="10" name="district">
+      <Position>5</Position>
+      <Comment>区/县</Comment>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="72" parent="10" name="parent">
+      <Position>6</Position>
+      <Comment>父级id</Comment>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="73" parent="10" name="create_at">
+      <Position>7</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="74" parent="10" name="update_at">
+      <Position>8</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="75" parent="10" name="del_flag">
+      <Position>9</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="76" parent="10" name="code">
+      <ColNames>code</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="77" parent="10" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="78" parent="10" name="code">
+      <ColNames>code</ColNames>
+      <UnderlyingIndexName>code</UnderlyingIndexName>
+    </key>
+    <column id="79" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="80" parent="11" name="operator_id">
+      <Position>2</Position>
+      <Comment>运营商ID</Comment>
+      <DataType>varchar(9)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="81" parent="11" name="operator_name">
+      <Position>3</Position>
+      <Comment>运营商名称</Comment>
+      <DataType>varchar(64)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="82" parent="11" name="operator_tel1">
+      <Position>4</Position>
+      <Comment>运营商客服电话1</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="83" parent="11" name="operator_tel2">
+      <Position>5</Position>
+      <Comment>运营商客服电话2</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="84" parent="11" name="operator_reg_adress">
+      <Position>6</Position>
+      <Comment>运营商注册地址</Comment>
+      <DataType>varchar(64)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="85" parent="11" name="operator_note">
+      <Position>7</Position>
+      <Comment>备注信息</Comment>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="86" parent="11" name="create_at">
+      <Position>8</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="87" parent="11" name="update_at">
+      <Position>9</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="88" parent="11" name="del_flag">
+      <Position>10</Position>
+      <Comment>是否已删除 0：未删除 1：已删除</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="89" parent="11" name="operator_id">
+      <ColNames>operator_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="90" parent="11" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="91" parent="11" name="operator_id">
+      <ColNames>operator_id</ColNames>
+      <UnderlyingIndexName>operator_id</UnderlyingIndexName>
+    </key>
+    <column id="92" parent="12" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="93" parent="12" name="pole_id">
+      <Position>2</Position>
+      <Comment>设备唯一编码，对同一运营商，保证唯一</Comment>
+      <DataType>varchar(23)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="94" parent="12" name="station_id">
+      <Position>3</Position>
+      <Comment>充电站ID 运营商自定义的唯一编码，不足长度在前方补0</Comment>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="95" parent="12" name="manufacturer_id">
+      <Position>4</Position>
+      <Comment>设备生产商组织机构代码</Comment>
+      <DataType>varchar(9)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="96" parent="12" name="manufacturer_name">
+      <Position>5</Position>
+      <Comment>设备生产商的名称</Comment>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="97" parent="12" name="pole_model">
+      <Position>6</Position>
+      <Comment>设备型号，由设备生产商定义的设备型号</Comment>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="98" parent="12" name="production_date">
+      <Position>7</Position>
+      <Comment>设备生产日期 YYYY-MM-DD</Comment>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="99" parent="12" name="pole_type">
+      <Position>8</Position>
+      <Comment>设备类型&#xd;
+1：直流设备；&#xd;
+2：交流设备；&#xd;
+3：交直流一体设备；&#xd;
+4：无线设备&#xd;
+5：其他</Comment>
+      <DataType>tinyint(3)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="100" parent="12" name="pole_lng">
+      <Position>9</Position>
+      <Comment>充电设备经度,6位小数 GCJ-02坐标系</Comment>
+      <DataType>double(9,6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0.000000&apos;</DefaultExpression>
+    </column>
+    <column id="101" parent="12" name="pole_lat">
+      <Position>10</Position>
+      <Comment>充电设备纬度,6位小数 GCJ-02坐标系</Comment>
+      <DataType>double(9,6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0.000000&apos;</DefaultExpression>
+    </column>
+    <column id="102" parent="12" name="power">
+      <Position>11</Position>
+      <Comment>充电设备总功率 单位：KW 保留一位小数</Comment>
+      <DataType>double(5,1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
+    </column>
+    <column id="103" parent="12" name="pole_name">
+      <Position>12</Position>
+      <Comment>充电设备名称</Comment>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="104" parent="12" name="create_at">
+      <Position>13</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="105" parent="12" name="update_at">
+      <Position>14</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="106" parent="12" name="del_flag">
+      <Position>15</Position>
+      <Comment>是否已删除 0：未删除 1：已删除</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="107" parent="12" name="fk_pole_operator">
+      <ColNames>manufacturer_id</ColNames>
+    </index>
+    <index id="108" parent="12" name="pole_id">
+      <ColNames>pole_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="109" parent="12" name="station_id">
+      <ColNames>station_id</ColNames>
+    </index>
+    <key id="110" parent="12" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="111" parent="12" name="pole_id">
+      <ColNames>pole_id</ColNames>
+      <UnderlyingIndexName>pole_id</UnderlyingIndexName>
+    </key>
+    <foreign-key id="112" parent="12" name="fk_pole_station">
+      <ColNames>station_id</ColNames>
+      <RefSchemaName>yundian_db</RefSchemaName>
+      <RefTableName>t_station</RefTableName>
+      <RefColNames>station_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+    </foreign-key>
+    <foreign-key id="113" parent="12" name="fk_pole_operator">
+      <ColNames>manufacturer_id</ColNames>
+      <RefSchemaName>yundian_db</RefSchemaName>
+      <RefTableName>t_operator</RefTableName>
+      <RefColNames>operator_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <column id="114" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="115" parent="13" name="station_id">
+      <Position>2</Position>
+      <Comment>充电站ID 运营商自定义的唯一编码，不足长度在前方补0</Comment>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="116" parent="13" name="operator_id">
+      <Position>3</Position>
+      <Comment>运营商ID</Comment>
+      <DataType>varchar(9)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="117" parent="13" name="equipment_owner_id">
+      <Position>4</Position>
+      <Comment>设备所属方ID 设备所属运营平台组织机构代码</Comment>
+      <DataType>varchar(9)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="118" parent="13" name="station_name">
+      <Position>5</Position>
+      <Comment>充电站名称</Comment>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="119" parent="13" name="country_code">
+      <Position>6</Position>
+      <Comment>充电站国家代码 比如:cn,us</Comment>
+      <DataType>varchar(2)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;cn&apos;</DefaultExpression>
+    </column>
+    <column id="120" parent="13" name="area_code">
+      <Position>7</Position>
+      <Comment>充电站省市辖区编码 内容参照：GBT 2206-2007&#xd;
+比如 南京：320100</Comment>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="121" parent="13" name="address">
+      <Position>8</Position>
+      <Comment>详细地址</Comment>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="122" parent="13" name="station_tel">
+      <Position>9</Position>
+      <Comment>站点电话 能够联系场站工作人员进行协助的联系电话</Comment>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="123" parent="13" name="service_tel">
+      <Position>10</Position>
+      <Comment>平台服务电话，例如400的电话</Comment>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="124" parent="13" name="station_type">
+      <Position>11</Position>
+      <Comment>站点类型&#xd;
+1：公共&#xd;
+50：个人&#xd;
+100：公交（专用）&#xd;
+101：环卫（专用）&#xd;
+102：物流（专用）&#xd;
+103：出租车（专用）&#xd;
+255：其他</Comment>
+      <DataType>tinyint(3) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="125" parent="13" name="station_status">
+      <Position>12</Position>
+      <Comment>站点状态&#xd;
+0：未知&#xd;
+1：建设中&#xd;
+5：关闭下线&#xd;
+6：维护中&#xd;
+10: 正在审核&#xd;
+
+11: 审核未通过
+         &#xd;
+12: 待审核&#xd;
+50：正常使用</Comment>
+      <DataType>tinyint(3) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="126" parent="13" name="park_nums">
+      <Position>13</Position>
+      <Comment>车位数量 可停放进行充电的车位总数，默认：0 未知</Comment>
+      <DataType>smallint(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="127" parent="13" name="station_lng">
+      <Position>14</Position>
+      <Comment>经度 保留小数点后6位 GCJ-02坐标系</Comment>
+      <DataType>double(9,6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0.000000&apos;</DefaultExpression>
+    </column>
+    <column id="128" parent="13" name="station_lat">
+      <Position>15</Position>
+      <Comment>纬度 保留小数点后6位 GCJ-02坐标系</Comment>
+      <DataType>double(9,6)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0.000000&apos;</DefaultExpression>
+    </column>
+    <column id="129" parent="13" name="site_guide">
+      <Position>16</Position>
+      <Comment>站点引导 描述性文字，用于引导车主找到充电车位</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="130" parent="13" name="construction">
+      <Position>17</Position>
+      <Comment>建设场所&#xd;
+1：居民区&#xd;
+2：公共机构&#xd;
+3：企事业单位&#xd;
+4：写字楼&#xd;
+5：工业园区&#xd;
+6：交通枢纽&#xd;
+7：大型文体设施&#xd;
+8：城市绿地&#xd;
+9：大型建筑配建停车场&#xd;
+10：路边停车位&#xd;
+11：城际高速服务区&#xd;
+255：其他</Comment>
+      <DataType>tinyint(3) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="131" parent="13" name="match_cars_desc">
+      <Position>18</Position>
+      <Comment>使用车型描述 描述该站点接受的车大小以及类型，如大巴、物流车、私家乘用车、出租车等</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="132" parent="13" name="park_info">
+      <Position>19</Position>
+      <Comment>车位楼层及数量描述 车位楼层以及数量信息</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="133" parent="13" name="busine_hours">
+      <Position>20</Position>
+      <Comment>营业时间描述</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="134" parent="13" name="electricity_fee_desc">
+      <Position>21</Position>
+      <Comment>充电电费率 充电费描述</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="135" parent="13" name="service_fee_desc">
+      <Position>22</Position>
+      <Comment>服务费率描述</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="136" parent="13" name="park_fee_desc">
+      <Position>23</Position>
+      <Comment>停车费率描述</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="137" parent="13" name="payment_type">
+      <Position>24</Position>
+      <Comment>支付方式:刷卡、线上、现金&#xd;
+其中电子钱包类卡为刷卡，身份鉴权卡、微信/支付宝、APP为线上</Comment>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="138" parent="13" name="support_order">
+      <Position>25</Position>
+      <Comment>是否支持预约 充电设备是否需要提前预约后才能使用，默认值0，不需要预约</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="139" parent="13" name="remark">
+      <Position>26</Position>
+      <Comment>其他备注信息</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="140" parent="13" name="create_at">
+      <Position>27</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="141" parent="13" name="update_at">
+      <Position>28</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="142" parent="13" name="del_flag">
+      <Position>29</Position>
+      <Comment>是否已删除 0：未删除 1：已删除</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="143" parent="13" name="fk_station_nation">
+      <ColNames>area_code</ColNames>
+    </index>
+    <index id="144" parent="13" name="fk_station_operator_equipment">
+      <ColNames>equipment_owner_id</ColNames>
+    </index>
+    <index id="145" parent="13" name="fk_station_operator_operator">
+      <ColNames>operator_id</ColNames>
+    </index>
+    <index id="146" parent="13" name="station_id">
+      <ColNames>station_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="147" parent="13" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="148" parent="13" name="station_id">
+      <ColNames>station_id</ColNames>
+      <UnderlyingIndexName>station_id</UnderlyingIndexName>
+    </key>
+    <foreign-key id="149" parent="13" name="fk_station_operator_operator">
+      <ColNames>operator_id</ColNames>
+      <RefSchemaName>yundian_db</RefSchemaName>
+      <RefTableName>t_operator</RefTableName>
+      <RefColNames>operator_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <foreign-key id="150" parent="13" name="fk_station_operator_equipment">
+      <ColNames>equipment_owner_id</ColNames>
+      <RefSchemaName>yundian_db</RefSchemaName>
+      <RefTableName>t_operator</RefTableName>
+      <RefColNames>operator_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <foreign-key id="151" parent="13" name="fk_station_nation">
+      <ColNames>area_code</ColNames>
+      <RefSchemaName>yundian_db</RefSchemaName>
+      <RefTableName>t_nation</RefTableName>
+      <RefColNames>code</RefColNames>
+      <OnUpdate>update</OnUpdate>
+    </foreign-key>
+    <column id="152" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="153" parent="14" name="station_id">
+      <Position>2</Position>
+      <Comment>充电站ID 运营商自定义的唯一编码，不足长度在前方补0</Comment>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="154" parent="14" name="img_url">
+      <Position>3</Position>
+      <Comment>充电站图片链接</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="155" parent="14" name="create_at">
+      <Position>4</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="156" parent="14" name="update_at">
+      <Position>5</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="157" parent="14" name="del_flag">
+      <Position>6</Position>
+      <Comment>是否已删除 0：未删除 1：已删除</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="158" parent="14" name="fk_station_img">
+      <ColNames>station_id</ColNames>
+    </index>
+    <key id="159" parent="14" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="160" parent="14" name="fk_station_img">
+      <ColNames>station_id</ColNames>
+      <RefSchemaName>yundian_db</RefSchemaName>
+      <RefTableName>t_station</RefTableName>
+      <RefColNames>station_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+    </foreign-key>
+    <column id="161" parent="15" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="162" parent="15" name="username">
+      <Position>2</Position>
+      <Comment>用户名 以电话号码作为用户名</Comment>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="163" parent="15" name="email">
+      <Position>3</Position>
+      <Comment>邮箱</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="164" parent="15" name="password">
+      <Position>4</Position>
+      <Comment>密码</Comment>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="165" parent="15" name="enable">
+      <Position>5</Position>
+      <Comment>身份是否可用</Comment>
+      <DataType>tinyint(3)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="166" parent="15" name="create_at">
+      <Position>6</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="167" parent="15" name="update_at">
+      <Position>7</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="168" parent="15" name="del_flag">
+      <Position>8</Position>
+      <Comment>是否已删除 0：未删除 1：已删除</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="169" parent="15" name="email">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="170" parent="15" name="username">
+      <ColNames>username</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="171" parent="15" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="172" parent="15" name="username">
+      <ColNames>username</ColNames>
+      <UnderlyingIndexName>username</UnderlyingIndexName>
+    </key>
+    <key id="173" parent="15" name="email">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>email</UnderlyingIndexName>
+    </key>
+    <argument id="174" parent="16">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>varchar(64)|0</DataType>
+    </argument>
+    <argument id="175" parent="16" name="areaId">
+      <DataType>varchar(20)|0</DataType>
+    </argument>
+    <column id="176" parent="17" name="token_id">
+      <Position>1</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="177" parent="17" name="token">
+      <Position>2</Position>
+      <DataType>blob|0</DataType>
+    </column>
+    <column id="178" parent="17" name="authentication_id">
+      <Position>3</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="179" parent="17" name="user_name">
+      <Position>4</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="180" parent="17" name="client_id">
+      <Position>5</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="181" parent="17" name="authentication">
+      <Position>6</Position>
+      <DataType>blob|0</DataType>
+    </column>
+    <column id="182" parent="17" name="refresh_token">
+      <Position>7</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="183" parent="18" name="client_id">
+      <Position>1</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="184" parent="18" name="resource_ids">
+      <Position>2</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="185" parent="18" name="client_secret">
+      <Position>3</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="186" parent="18" name="scope">
+      <Position>4</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="187" parent="18" name="authorized_grant_types">
+      <Position>5</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="188" parent="18" name="web_server_redirect_uri">
+      <Position>6</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="189" parent="18" name="authorities">
+      <Position>7</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="190" parent="18" name="access_token_validity">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="191" parent="18" name="refresh_token_validity">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="192" parent="18" name="additional_information">
+      <Position>10</Position>
+      <DataType>varchar(4096)|0</DataType>
+    </column>
+    <column id="193" parent="18" name="create_time">
+      <Position>11</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="194" parent="18" name="archived">
+      <Position>12</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="195" parent="18" name="trusted">
+      <Position>13</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="196" parent="18" name="autoapprove">
+      <Position>14</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <key id="197" parent="18" name="PRIMARY">
+      <ColNames>client_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="198" parent="19" name="token_id">
+      <Position>1</Position>
+      <DataType>varchar(256)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="199" parent="19" name="token">
+      <Position>2</Position>
+      <DataType>blob|0</DataType>
+    </column>
+    <column id="200" parent="19" name="authentication_id">
+      <Position>3</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="201" parent="19" name="user_name">
+      <Position>4</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="202" parent="19" name="client_id">
+      <Position>5</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <key id="203" parent="19" name="PRIMARY">
+      <ColNames>token_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="204" parent="20" name="code">
+      <Position>1</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="205" parent="20" name="authentication">
+      <Position>2</Position>
+      <DataType>blob|0</DataType>
+    </column>
+    <column id="206" parent="21" name="token_id">
+      <Position>1</Position>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="207" parent="21" name="token">
+      <Position>2</Position>
+      <DataType>blob|0</DataType>
+    </column>
+    <column id="208" parent="21" name="authentication">
+      <Position>3</Position>
+      <DataType>blob|0</DataType>
+    </column>
+    <column id="209" parent="22" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="210" parent="22" name="guid">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="211" parent="22" name="create_time">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="212" parent="22" name="archived">
+      <Position>4</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="213" parent="22" name="email">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="214" parent="22" name="password">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="215" parent="22" name="phone">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="216" parent="22" name="username">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="217" parent="22" name="default_user">
+      <Position>9</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="218" parent="22" name="last_login_time">
+      <Position>10</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <index id="219" parent="22" name="guid">
+      <ColNames>guid</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="220" parent="22" name="username">
+      <ColNames>username</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="221" parent="22" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="222" parent="22" name="guid">
+      <ColNames>guid</ColNames>
+      <UnderlyingIndexName>guid</UnderlyingIndexName>
+    </key>
+    <key id="223" parent="22" name="username">
+      <ColNames>username</ColNames>
+      <UnderlyingIndexName>username</UnderlyingIndexName>
+    </key>
+    <column id="224" parent="23" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="225" parent="23" name="user_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="226" parent="23" name="privilege">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="227" parent="23" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

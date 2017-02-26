@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sidu.dao.StationMapper" >
+  <resultMap id="BaseResultMap" type="com.sidu.domain.Station" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="station_id" property="stationId" jdbcType="VARCHAR" />
+    <result column="operator_id" property="operatorId" jdbcType="VARCHAR" />
+    <result column="equipment_owner_id" property="equipmentOwnerId" jdbcType="VARCHAR" />
+    <result column="station_name" property="stationName" jdbcType="VARCHAR" />
+    <result column="country_code" property="countryCode" jdbcType="VARCHAR" />
+    <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="station_tel" property="stationTel" jdbcType="VARCHAR" />
+    <result column="service_tel" property="serviceTel" jdbcType="VARCHAR" />
+    <result column="station_type" property="stationType" jdbcType="TINYINT" />
+    <result column="station_status" property="stationStatus" jdbcType="TINYINT" />
+    <result column="park_nums" property="parkNums" jdbcType="SMALLINT" />
+    <result column="station_lng" property="stationLng" jdbcType="DOUBLE" />
+    <result column="station_lat" property="stationLat" jdbcType="DOUBLE" />
+    <result column="site_guide" property="siteGuide" jdbcType="VARCHAR" />
+    <result column="construction" property="construction" jdbcType="TINYINT" />
+    <result column="match_cars_desc" property="matchCarsDesc" jdbcType="VARCHAR" />
+    <result column="park_info" property="parkInfo" jdbcType="VARCHAR" />
+    <result column="busine_hours" property="busineHours" jdbcType="VARCHAR" />
+    <result column="electricity_fee_desc" property="electricityFeeDesc" jdbcType="VARCHAR" />
+    <result column="service_fee_desc" property="serviceFeeDesc" jdbcType="VARCHAR" />
+    <result column="park_fee_desc" property="parkFeeDesc" jdbcType="VARCHAR" />
+    <result column="payment_type" property="paymentType" jdbcType="VARCHAR" />
+    <result column="support_order" property="supportOrder" jdbcType="BIT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
+    <result column="update_at" property="updateAt" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, station_id, operator_id, equipment_owner_id, station_name, country_code, area_code, 
+    address, station_tel, service_tel, station_type, station_status, park_nums, station_lng, 
+    station_lat, site_guide, construction, match_cars_desc, park_info, busine_hours, 
+    electricity_fee_desc, service_fee_desc, park_fee_desc, payment_type, support_order, 
+    remark, create_at, update_at, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_station
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_station
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sidu.domain.Station" >
+    insert into t_station (id, station_id, operator_id, 
+      equipment_owner_id, station_name, country_code, 
+      area_code, address, station_tel, 
+      service_tel, station_type, station_status, 
+      park_nums, station_lng, station_lat, 
+      site_guide, construction, match_cars_desc, 
+      park_info, busine_hours, electricity_fee_desc, 
+      service_fee_desc, park_fee_desc, payment_type, 
+      support_order, remark, create_at, 
+      update_at, del_flag)
+    values (#{id,jdbcType=BIGINT}, #{stationId,jdbcType=VARCHAR}, #{operatorId,jdbcType=VARCHAR}, 
+      #{equipmentOwnerId,jdbcType=VARCHAR}, #{stationName,jdbcType=VARCHAR}, #{countryCode,jdbcType=VARCHAR}, 
+      #{areaCode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{stationTel,jdbcType=VARCHAR}, 
+      #{serviceTel,jdbcType=VARCHAR}, #{stationType,jdbcType=TINYINT}, #{stationStatus,jdbcType=TINYINT}, 
+      #{parkNums,jdbcType=SMALLINT}, #{stationLng,jdbcType=DOUBLE}, #{stationLat,jdbcType=DOUBLE}, 
+      #{siteGuide,jdbcType=VARCHAR}, #{construction,jdbcType=TINYINT}, #{matchCarsDesc,jdbcType=VARCHAR}, 
+      #{parkInfo,jdbcType=VARCHAR}, #{busineHours,jdbcType=VARCHAR}, #{electricityFeeDesc,jdbcType=VARCHAR}, 
+      #{serviceFeeDesc,jdbcType=VARCHAR}, #{parkFeeDesc,jdbcType=VARCHAR}, #{paymentType,jdbcType=VARCHAR}, 
+      #{supportOrder,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{createAt,jdbcType=TIMESTAMP}, 
+      #{updateAt,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sidu.domain.Station" >
+    insert into t_station
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stationId != null" >
+        station_id,
+      </if>
+      <if test="operatorId != null" >
+        operator_id,
+      </if>
+      <if test="equipmentOwnerId != null" >
+        equipment_owner_id,
+      </if>
+      <if test="stationName != null" >
+        station_name,
+      </if>
+      <if test="countryCode != null" >
+        country_code,
+      </if>
+      <if test="areaCode != null" >
+        area_code,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="stationTel != null" >
+        station_tel,
+      </if>
+      <if test="serviceTel != null" >
+        service_tel,
+      </if>
+      <if test="stationType != null" >
+        station_type,
+      </if>
+      <if test="stationStatus != null" >
+        station_status,
+      </if>
+      <if test="parkNums != null" >
+        park_nums,
+      </if>
+      <if test="stationLng != null" >
+        station_lng,
+      </if>
+      <if test="stationLat != null" >
+        station_lat,
+      </if>
+      <if test="siteGuide != null" >
+        site_guide,
+      </if>
+      <if test="construction != null" >
+        construction,
+      </if>
+      <if test="matchCarsDesc != null" >
+        match_cars_desc,
+      </if>
+      <if test="parkInfo != null" >
+        park_info,
+      </if>
+      <if test="busineHours != null" >
+        busine_hours,
+      </if>
+      <if test="electricityFeeDesc != null" >
+        electricity_fee_desc,
+      </if>
+      <if test="serviceFeeDesc != null" >
+        service_fee_desc,
+      </if>
+      <if test="parkFeeDesc != null" >
+        park_fee_desc,
+      </if>
+      <if test="paymentType != null" >
+        payment_type,
+      </if>
+      <if test="supportOrder != null" >
+        support_order,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createAt != null" >
+        create_at,
+      </if>
+      <if test="updateAt != null" >
+        update_at,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="stationId != null" >
+        #{stationId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentOwnerId != null" >
+        #{equipmentOwnerId,jdbcType=VARCHAR},
+      </if>
+      <if test="stationName != null" >
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="stationTel != null" >
+        #{stationTel,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTel != null" >
+        #{serviceTel,jdbcType=VARCHAR},
+      </if>
+      <if test="stationType != null" >
+        #{stationType,jdbcType=TINYINT},
+      </if>
+      <if test="stationStatus != null" >
+        #{stationStatus,jdbcType=TINYINT},
+      </if>
+      <if test="parkNums != null" >
+        #{parkNums,jdbcType=SMALLINT},
+      </if>
+      <if test="stationLng != null" >
+        #{stationLng,jdbcType=DOUBLE},
+      </if>
+      <if test="stationLat != null" >
+        #{stationLat,jdbcType=DOUBLE},
+      </if>
+      <if test="siteGuide != null" >
+        #{siteGuide,jdbcType=VARCHAR},
+      </if>
+      <if test="construction != null" >
+        #{construction,jdbcType=TINYINT},
+      </if>
+      <if test="matchCarsDesc != null" >
+        #{matchCarsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="parkInfo != null" >
+        #{parkInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="busineHours != null" >
+        #{busineHours,jdbcType=VARCHAR},
+      </if>
+      <if test="electricityFeeDesc != null" >
+        #{electricityFeeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceFeeDesc != null" >
+        #{serviceFeeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="parkFeeDesc != null" >
+        #{parkFeeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentType != null" >
+        #{paymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="supportOrder != null" >
+        #{supportOrder,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null" >
+        #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sidu.domain.Station" >
+    update t_station
+    <set >
+      <if test="stationId != null" >
+        station_id = #{stationId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        operator_id = #{operatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentOwnerId != null" >
+        equipment_owner_id = #{equipmentOwnerId,jdbcType=VARCHAR},
+      </if>
+      <if test="stationName != null" >
+        station_name = #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        country_code = #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="stationTel != null" >
+        station_tel = #{stationTel,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTel != null" >
+        service_tel = #{serviceTel,jdbcType=VARCHAR},
+      </if>
+      <if test="stationType != null" >
+        station_type = #{stationType,jdbcType=TINYINT},
+      </if>
+      <if test="stationStatus != null" >
+        station_status = #{stationStatus,jdbcType=TINYINT},
+      </if>
+      <if test="parkNums != null" >
+        park_nums = #{parkNums,jdbcType=SMALLINT},
+      </if>
+      <if test="stationLng != null" >
+        station_lng = #{stationLng,jdbcType=DOUBLE},
+      </if>
+      <if test="stationLat != null" >
+        station_lat = #{stationLat,jdbcType=DOUBLE},
+      </if>
+      <if test="siteGuide != null" >
+        site_guide = #{siteGuide,jdbcType=VARCHAR},
+      </if>
+      <if test="construction != null" >
+        construction = #{construction,jdbcType=TINYINT},
+      </if>
+      <if test="matchCarsDesc != null" >
+        match_cars_desc = #{matchCarsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="parkInfo != null" >
+        park_info = #{parkInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="busineHours != null" >
+        busine_hours = #{busineHours,jdbcType=VARCHAR},
+      </if>
+      <if test="electricityFeeDesc != null" >
+        electricity_fee_desc = #{electricityFeeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceFeeDesc != null" >
+        service_fee_desc = #{serviceFeeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="parkFeeDesc != null" >
+        park_fee_desc = #{parkFeeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentType != null" >
+        payment_type = #{paymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="supportOrder != null" >
+        support_order = #{supportOrder,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        create_at = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAt != null" >
+        update_at = #{updateAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sidu.domain.Station" >
+    update t_station
+    set station_id = #{stationId,jdbcType=VARCHAR},
+      operator_id = #{operatorId,jdbcType=VARCHAR},
+      equipment_owner_id = #{equipmentOwnerId,jdbcType=VARCHAR},
+      station_name = #{stationName,jdbcType=VARCHAR},
+      country_code = #{countryCode,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      station_tel = #{stationTel,jdbcType=VARCHAR},
+      service_tel = #{serviceTel,jdbcType=VARCHAR},
+      station_type = #{stationType,jdbcType=TINYINT},
+      station_status = #{stationStatus,jdbcType=TINYINT},
+      park_nums = #{parkNums,jdbcType=SMALLINT},
+      station_lng = #{stationLng,jdbcType=DOUBLE},
+      station_lat = #{stationLat,jdbcType=DOUBLE},
+      site_guide = #{siteGuide,jdbcType=VARCHAR},
+      construction = #{construction,jdbcType=TINYINT},
+      match_cars_desc = #{matchCarsDesc,jdbcType=VARCHAR},
+      park_info = #{parkInfo,jdbcType=VARCHAR},
+      busine_hours = #{busineHours,jdbcType=VARCHAR},
+      electricity_fee_desc = #{electricityFeeDesc,jdbcType=VARCHAR},
+      service_fee_desc = #{serviceFeeDesc,jdbcType=VARCHAR},
+      park_fee_desc = #{parkFeeDesc,jdbcType=VARCHAR},
+      payment_type = #{paymentType,jdbcType=VARCHAR},
+      support_order = #{supportOrder,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_at = #{createAt,jdbcType=TIMESTAMP},
+      update_at = #{updateAt,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
