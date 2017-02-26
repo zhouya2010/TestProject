@@ -1,8 +1,6 @@
 package com.sidu.controller;
 
 import com.sidu.annotation.ApiAuth;
-import com.sidu.domain.Station;
-import com.sidu.domain.User;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
@@ -30,10 +28,6 @@ public class AopHandle {
         System.out.println(apiAuth.desc());
         if (UserContoller.class.equals(apiAuth.clazz())){
             System.out.println("su =====>");
-        }
-
-        if (Station.class.equals(apiAuth.clazz())){
-            System.out.println("eeee =====>");
         }
     }
 

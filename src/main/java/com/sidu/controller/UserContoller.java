@@ -1,20 +1,18 @@
 package com.sidu.controller;
 
-import com.sidu.annotation.ApiAuth;
-import com.sidu.domain.User;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import com.google.gson.Gson;
+import com.sidu.entity.User;
+import com.sidu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -25,13 +23,20 @@ public class UserContoller {
     @Value("${test.content}")
     String test;
 
-    @Autowired
-    RabbitTemplate rabbitTemplate;
+//    @Autowired
+//    RabbitTemplate rabbitTemplate;
 
-    @ApiAuth(clazz = UserContoller.class,desc = "#para")
+    @Autowired
+    UserService userService;
+
     @RequestMapping(value = "hello", method = RequestMethod.GET)
     public String hello(@RequestParam("para") String para){
-        return para;
+        User user = new User();
+        user.setUsername("zhouya");
+        user.setPassword("123");
+        user.setPhone("1234567");
+        userService.add(user);
+        return user.getId()+ "";
     }
 
 
@@ -43,17 +48,17 @@ public class UserContoller {
 
     @RequestMapping("get")
     public String getUser(){
-        return test;
+        List<User> users = userService.getUsers();
+        return new Gson().toJson(users);
     }
 
-    @RequestMapping("sent")
-    public String sentMq(){
-        User user = new User();
-        user.setUsername("zhouya");
-        user.setEmail("zhouya@163.com");
-
-        rabbitTemplate.convertAndSend("zyKey", user);
-        return "sent successful";
-    }
+//    @RequestMapping("sent")
+//    public String sentMq(){
+//        User user = new User();
+//        user.setUsername("zhouya");
+//
+//        rabbitTemplate.convertAndSend("zyKey", user);
+//        return "sent successful";
+//    }
 
 }
